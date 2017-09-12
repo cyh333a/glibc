@@ -16,9 +16,16 @@
    License along with the GNU C Library; if not, see
    <http://www.gnu.org/licenses/>.  */
 
+#include <shlib-compat.h>
 #undef strong_alias
 #define strong_alias(a, b)
+#undef hidden_def
+#define hidden_def(a)
+#undef libm_hidden_proto
+#define libm_hidden_proto(a)
+#undef versioned_symbol
+#define versioned_symbol(a, b, c, d)
 
-#define __ieee754_expf __ieee754_expf_ppc64
+#define __expf __ieee754_expf_ppc64
 
 #include <sysdeps/ieee754/flt-32/e_expf.c>
