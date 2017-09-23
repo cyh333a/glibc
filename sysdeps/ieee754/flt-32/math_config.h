@@ -119,7 +119,7 @@ extern const struct exp2f_data
   double shift;
   double invln2_scaled;
   double poly_scaled[EXP2F_POLY_ORDER];
-} __exp2f_data;
+} __exp2f_data attribute_hidden;
 
 #define LOGF_TABLE_BITS 4
 #define LOGF_POLY_ORDER 4
@@ -131,7 +131,7 @@ extern const struct logf_data
   } tab[1 << LOGF_TABLE_BITS];
   double ln2;
   double poly[LOGF_POLY_ORDER];
-} __logf_data;
+} __logf_data attribute_hidden;
 
 #define LOG2F_TABLE_BITS 4
 #define LOG2F_POLY_ORDER 4
@@ -142,7 +142,7 @@ extern const struct log2f_data
     double invc, logc;
   } tab[1 << LOG2F_TABLE_BITS];
   double poly[LOG2F_POLY_ORDER];
-} __log2f_data;
+} __log2f_data attribute_hidden;
 
 #define POWF_LOG2_TABLE_BITS 4
 #define POWF_LOG2_POLY_ORDER 5
@@ -159,6 +159,6 @@ extern const struct powf_log2_data
     double invc, logc;
   } tab[1 << POWF_LOG2_TABLE_BITS];
   double poly[POWF_LOG2_POLY_ORDER];
-} __powf_log2_data;
+} __powf_log2_data attribute_hidden;
 
 #endif
