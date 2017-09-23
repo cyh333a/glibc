@@ -16,6 +16,11 @@
    License along with the GNU C Library; if not, see
    <http://www.gnu.org/licenses/>.  */
 
+#ifdef __expf
+# undef libm_hidden_proto
+# define libm_hidden_proto(ignored)
+#endif
+
 #include <math.h>
 #include <stdint.h>
 #include <shlib-compat.h>
@@ -100,7 +105,10 @@ __expf (float x)
   y = y * s;
   return (float) y;
 }
+
+#ifndef __expf
 hidden_def (__expf)
 strong_alias (__expf, __ieee754_expf)
 strong_alias (__expf, __expf_finite)
 versioned_symbol (libm, __expf, expf, GLIBC_2_27);
+#endif
