@@ -1343,6 +1343,7 @@ class Glibc(object):
         cfg_cmd = [os.path.join(srcdir_copy, 'configure'),
                    '--prefix=/usr',
                    '--enable-add-ons',
+                   '--enable-static-pie',
                    '--enable-profile',
                    '--build=%s' % self.ctx.build_triplet,
                    '--host=%s' % self.triplet,
