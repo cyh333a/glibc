@@ -63,11 +63,22 @@ elf_machine_load_address (void)
 {
   Elf64_Addr addr;
 
+#ifdef SHARED
   __asm__( "   larl	 %0,_dl_start\n"
 	   "   larl	 1,_GLOBAL_OFFSET_TABLE_\n"
 	   "   lghi	 2,_dl_start@GOT\n"
 	   "   slg	 %0,0(2,1)"
 	   : "=&d" (addr) : : "1", "2" );
+#else
+  extern Elf64_Dyn _DYNAMIC[] __attribute__((weak, visibility ("hidden")));
+  if (!_DYNAMIC)
+    return 0;
+  __asm__( "   larl	 %0,_dl_relocate_static_pie\n"
+	   "   larl	 1,_GLOBAL_OFFSET_TABLE_\n"
+	   "   lghi	 2,_dl_relocate_static_pie@GOT\n"
+	   "   slg	 %0,0(2,1)"
+	   : "=&d" (addr) : : "1", "2" );
+#endif
   return addr;
 }
 
