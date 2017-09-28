@@ -79,6 +79,11 @@ elf_machine_dynamic (void)
 static inline Elf64_Addr __attribute__ ((unused))
 elf_machine_load_address (void)
 {
+#ifndef SHARED
+  extern Elf64_Dyn _DYNAMIC[] __attribute__((weak, visibility ("hidden")));
+  if (!_DYNAMIC)
+    return 0;
+#endif
   Elf64_Addr ip;
   int *p;
 
