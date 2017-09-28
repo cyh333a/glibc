@@ -53,6 +53,11 @@ elf_machine_dynamic (void)
 static inline Elf32_Addr
 elf_machine_load_address (void)
 {
+#ifndef SHARED
+  extern Elf32_Dyn _DYNAMIC[] __attribute__((weak, visibility ("hidden")));
+  if (!_DYNAMIC)
+    return 0;
+#endif
   Elf32_Addr result;
   int tmp;
   asm ("nextpc\t%0\n\t"
