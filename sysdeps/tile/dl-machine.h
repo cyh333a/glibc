@@ -84,6 +84,11 @@ elf_machine_dynamic (void)
 static inline ElfW(Addr)
 elf_machine_load_address (void)
 {
+#ifndef SHARED
+  extern ElfW(Dyn) _DYNAMIC[] __attribute__((weak, visibility ("hidden")));
+  if (!_DYNAMIC)
+    return 0;
+#endif
   ElfW(Addr) *got;
   ElfW(Addr) dynamic;
 
