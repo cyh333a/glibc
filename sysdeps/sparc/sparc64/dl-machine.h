@@ -66,6 +66,11 @@ elf_machine_dynamic (void)
 static inline Elf64_Addr
 elf_machine_load_address (void)
 {
+#ifndef SHARED
+  extern Elf64_Dyn _DYNAMIC[] __attribute__((weak, visibility ("hidden")));
+  if (!_DYNAMIC)
+    return 0;
+#endif
   register Elf32_Addr *pc __asm ("%o7");
   register Elf64_Addr *got __asm ("%l7");
 
