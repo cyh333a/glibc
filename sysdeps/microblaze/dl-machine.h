@@ -57,6 +57,11 @@ elf_machine_load_address (void)
      by a GOTOFF reference, and the link-time address found in the special
      unrelocated first GOT entry.  */
 
+#ifndef SHARED
+  extern Elf32_Dyn _DYNAMIC[] __attribute__((weak, visibility ("hidden")));
+  if (!_DYNAMIC)
+    return 0;
+#endif
   Elf32_Addr dyn;
   __asm__ __volatile__ (
     "addik %0,r20,_DYNAMIC@GOTOFF"
